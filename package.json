@@ -1,0 +1,13 @@
+{
+  "name": "appkebab",
+  "version": "1.0.0",
+  "description": "We Roast Your App - Mental Health App Scoring Tool",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["scoring", "mental-health", "app-evaluation"],
+  "author": "Vik Dayal",
+  "license": "MIT"
+}
