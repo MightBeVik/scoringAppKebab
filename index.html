@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppKebab - We Roast Your App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <h1 class="logo">AppKebab</h1>
+                <p class="tagline">We Roast Your App</p>
+            </div>
+            <div class="nav-links">
+                <a href="#" onclick="showQuiz()" class="nav-link active" id="quizLink">Quiz</a>
+                <a href="#" onclick="showResources()" class="nav-link" id="resourcesLink">Resources</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Quiz Section -->
+    <div id="quizSection" class="page active">
+        <div class="container">
+            <div class="quiz-container">
+                <div id="quizContent">
+                    <div id="questionCard" class="question-card">
+                        <!-- Questions will be injected here -->
+                    </div>
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                        <p id="progressText" class="progress-text">Question 1 of 8</p>
+                    </div>
+                </div>
+
+                <div id="resultsContainer" class="results-container hidden">
+                    <div class="results-card">
+                        <h2>Your App's Score</h2>
+                        <div class="score-display">
+                            <div class="score-circle">
+                                <span class="score-value" id="finalScore">0</span>
+                                <span class="score-max">/ 100</span>
+                            </div>
+                        </div>
+                        <div class="score-breakdown">
+                            <h3>Score Breakdown</h3>
+                            <table id="breakdownTable">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Score</th>
+                                        <th>Weight</th>
+                                        <th>Weighted Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="breakdownBody"></tbody>
+                            </table>
+                        </div>
+                        <div class="rating-interpretation">
+                            <h3>Rating Interpretation</h3>
+                            <div id="interpretation"></div>
+                        </div>
+                        <button type="button" class="reset-btn" onclick="resetQuiz()">Retake Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resources Section -->
+    <div id="resourcesSection" class="page">
+        <div class="container">
+            <h2>Scoring Criteria</h2>
+            
+            <div class="scoring-formula">
+                <h3>Scoring Formula</h3>
+                <div class="formula-box">
+                    <p>Final Score = <span class="formula-text">(Σ(wᵢ × sᵢ) / 27.5) × 100</span></p>
+                    <p class="formula-legend"><strong>Where:</strong></p>
+                    <ul>
+                        <li><strong>wᵢ</strong> = weight of category i</li>
+                        <li><strong>sᵢ</strong> = score (0-5) for category i</li>
+                        <li><strong>27.5</strong> = maximum possible weighted sum (sum of all weights × 5)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resources-table-wrapper">
+                <table class="resources-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Weight</th>
+                            <th>User-Preferred Option</th>
+                            <th>Scoring Guide (0–5)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Crisis Handling</strong></td>
+                            <td>1.0</td>
+                            <td>24/7 Emergency Response</td>
+                            <td>5 = 24/7 emergency support; 2 = resource-sharing only; 0 = no crisis handling</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Response Type</strong></td>
+                            <td>0.9</td>
+                            <td>Learns from User</td>
+                            <td>5 = adaptive personalization; 3 = expert-designed static responses; 0 = same for all users</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost</strong></td>
+                            <td>0.8</td>
+                            <td>Free/Freemium</td>
+                            <td>5 = free or strong free tier; 3 = one-time purchase; 2 = subscription-only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Content Style</strong></td>
+                            <td>0.7</td>
+                            <td>Text-Based</td>
+                            <td>5 = text-first interface; 4 = gamified; 3 = voice only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Human Oversight</strong></td>
+                            <td>0.6</td>
+                            <td>Professional Oversight</td>
+                            <td>5 = clinician oversight or escalation; 3 = user-controlled/peer; 0 = none</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Privacy</strong></td>
+                            <td>0.6</td>
+                            <td>Download Your Data</td>
+                            <td>5 = full data export + clear policy; 4 = legal policy only; 3 = view-only data</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Effectiveness Evidence</strong></td>
+                            <td>0.5</td>
+                            <td>Professional Studies</td>
+                            <td>5 = clinical studies; 4 = testimonials/user evidence; 0 = no evidence</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Handling</strong></td>
+                            <td>0.4</td>
+                            <td>On-Cloud / Hybrid</td>
+                            <td>5 = secure cloud or hybrid; 4 = local-only; 0–2 = unclear or non-secure storage</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
