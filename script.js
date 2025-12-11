@@ -252,6 +252,9 @@ function displayResults(finalScore, results) {
     `;
     breakdownBody.appendChild(totalRow);
     
+    // Create radar chart
+    createRadarChart(results);
+    
     // Display interpretation
     const interpretation = getInterpretation(finalScore);
     const interpretationDiv = document.getElementById('interpretation');
@@ -261,6 +264,92 @@ function displayResults(finalScore, results) {
         </div>
         <div class="interpretation-text">${interpretation.description}</div>
     `;
+}
+
+function createRadarChart(results) {
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    
+    // Destroy existing chart if it exists
+    if (window.radarChartInstance) {
+        window.radarChartInstance.destroy();
+    }
+    
+    const chartData = {
+        labels: results.map(r => r.name),
+        datasets: [
+            {
+                label: 'Score (0-5)',
+                data: results.map(r => r.score),
+                borderColor: '#000',
+                backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                borderWidth: 2,
+                pointBackgroundColor: '#000',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                tension: 0.4
+            }
+        ]
+    };
+    
+    window.radarChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 5,
+                    ticks: {
+                        color: '#666',
+                        font: {
+                            size: 12
+                        }
+                    },
+                    grid: {
+                        color: '#e0e0e0'
+                    },
+                    pointLabels: {
+                        color: '#000',
+                        font: {
+                            size: 13,
+                            weight: '600'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#000',
+                        font: {
+                            size: 13,
+                            weight: '600'
+                        },
+                        padding: 20
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: '#fff',
+                    borderWidth: 1,
+                    padding: 12,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            return 'Score: ' + context.parsed.r.toFixed(1) + ' / 5';
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 function getInterpretation(score) {

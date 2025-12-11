@@ -48,7 +48,7 @@
                                 <span class="score-max">/ 100</span>
                             </div>
                         </div>
-                        <div class="score-breakdown">
+                <div class="score-breakdown">
                             <h3>Score Breakdown</h3>
                             <table id="breakdownTable">
                                 <thead>
@@ -61,6 +61,10 @@
                                 </thead>
                                 <tbody id="breakdownBody"></tbody>
                             </table>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Category Performance</h3>
+                            <canvas id="radarChart"></canvas>
                         </div>
                         <div class="rating-interpretation">
                             <h3>Rating Interpretation</h3>
@@ -156,6 +160,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
