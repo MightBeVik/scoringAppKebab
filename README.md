@@ -2,11 +2,18 @@
 
 A minimal, elegant scoring tool for evaluating mental health applications across 8 key dimensions.
 
+## Setup
+
+To use the LOTR banner image on the quiz page:
+1. Save the LOTR banner image as `lotr-banner.png` in the root directory
+2. The app will automatically display it at the top of the quiz
+
 ## Features
 
 - **Single-Card Quiz** - One question at a time with smooth auto-advance
 - **Intelligent Scoring** - Weighted formula: `(Σ(wᵢ × sᵢ) / 27.5) × 100`
 - **Detailed Breakdown** - See your score and category analysis
+- **Radar Chart** - Visual spider chart showing category performance
 - **Resources Page** - Full scoring criteria and calculation formula
 - **Minimal Design** - Clean black/white/grey aesthetic
 
