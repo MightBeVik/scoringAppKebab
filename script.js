@@ -267,89 +267,104 @@ function displayResults(finalScore, results) {
 }
 
 function createRadarChart(results) {
-    const ctx = document.getElementById('radarChart').getContext('2d');
-    
-    // Destroy existing chart if it exists
-    if (window.radarChartInstance) {
-        window.radarChartInstance.destroy();
-    }
-    
-    const chartData = {
-        labels: results.map(r => r.name),
-        datasets: [
-            {
-                label: 'Score (0-5)',
-                data: results.map(r => r.score),
-                borderColor: '#000',
-                backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                borderWidth: 2,
-                pointBackgroundColor: '#000',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointRadius: 5,
-                pointHoverRadius: 7,
-                tension: 0.4
-            }
-        ]
-    };
-    
-    window.radarChartInstance = new Chart(ctx, {
-        type: 'radar',
-        data: chartData,
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            scales: {
-                r: {
-                    beginAtZero: true,
-                    max: 5,
-                    ticks: {
-                        color: '#666',
-                        font: {
-                            size: 12
-                        }
-                    },
-                    grid: {
-                        color: '#e0e0e0'
-                    },
-                    pointLabels: {
-                        color: '#000',
-                        font: {
-                            size: 13,
-                            weight: '600'
-                        }
-                    }
+    // Wait a moment for DOM to be ready, then create chart
+    setTimeout(() => {
+        const canvas = document.getElementById('radarChart');
+        if (!canvas) {
+            console.error('Canvas element not found');
+            return;
+        }
+        
+        const ctx = canvas.getContext('2d');
+        
+        // Destroy existing chart if it exists
+        if (window.radarChartInstance) {
+            window.radarChartInstance.destroy();
+        }
+        
+        // Add 1 to all scores for better visualization (0-5 becomes 1-6)
+        const adjustedScores = results.map(r => r.score + 1);
+        
+        const chartData = {
+            labels: results.map(r => r.name),
+            datasets: [
+                {
+                    label: 'Score (1-6)',
+                    data: adjustedScores,
+                    borderColor: '#000',
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#000',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    tension: 0.4
                 }
-            },
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: '#000',
-                        font: {
-                            size: 13,
-                            weight: '600'
+            ]
+        };
+        
+        window.radarChartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 6,
+                        min: 1,
+                        ticks: {
+                            color: '#666',
+                            font: {
+                                size: 12
+                            }
                         },
-                        padding: 20
+                        grid: {
+                            color: '#e0e0e0'
+                        },
+                        pointLabels: {
+                            color: '#000',
+                            font: {
+                                size: 13,
+                                weight: '600'
+                            }
+                        }
                     }
                 },
-                tooltip: {
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                    titleColor: '#fff',
-                    bodyColor: '#fff',
-                    borderColor: '#fff',
-                    borderWidth: 1,
-                    padding: 12,
-                    displayColors: false,
-                    callbacks: {
-                        label: function(context) {
-                            return 'Score: ' + context.parsed.r.toFixed(1) + ' / 5';
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#000',
+                            font: {
+                                size: 13,
+                                weight: '600'
+                            },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        borderColor: '#fff',
+                        borderWidth: 1,
+                        padding: 12,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                // Subtract 1 to show original score (0-5 range)
+                                const originalScore = context.parsed.r - 1;
+                                return 'Score: ' + originalScore.toFixed(1) + ' / 5';
+                            }
                         }
                     }
                 }
             }
-        }
-    });
+        });
+    }, 100);
 }
 
 function getInterpretation(score) {
